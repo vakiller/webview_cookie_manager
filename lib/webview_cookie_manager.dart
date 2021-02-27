@@ -28,16 +28,16 @@ class WebviewCookieManager {
         'getCookies', {'url': url}).then((results) => results);
   }
 
-  /// Remove cookies with [currentUrl] for IOS and Android
-  Future<void> removeCookie(String currentUrl) async {
-    final listCookies = await getCookies(currentUrl);
-    final serializedCookies = listCookies
-        .where((element) => currentUrl.contains(element.domain))
-        .toList();
-    serializedCookies
-        .forEach((c) => c.expires = DateTime.fromMicrosecondsSinceEpoch(0));
-    await setCookies(serializedCookies);
-  }
+  // /// Remove cookies with [currentUrl] for IOS and Android
+  // Future<void> removeCookie(String currentUrl) async {
+  //   final listCookies = await getCookies(currentUrl);
+  //   final serializedCookies = listCookies
+  //       .where((element) => currentUrl.contains(element.domain))
+  //       .toList();
+  //   serializedCookies
+  //       .forEach((c) => c.expires = DateTime.fromMicrosecondsSinceEpoch(0));
+  //   await setCookies(serializedCookies);
+  // }
 
   /// Remove all cookies
   Future<void> clearCookies() {
