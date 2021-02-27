@@ -23,25 +23,9 @@ class WebviewCookieManager {
   }
 
   /// Read out all cookies, or all cookies for a [url] when provided
-  Future<List<Cookie>> getCookies(String url) {
-    return _channel.invokeListMethod<Map>('getCookies', {
-      'url': url
-    }).then((results) => results.map((Map result) {
-          final c =
-              Cookie(result['name'], removeInvalidCharacter(result['value']))
-                // following values optionally work on iOS only
-                ..path = result['path']
-                ..domain = result['domain']
-                ..secure = result['secure']
-                ..httpOnly = result['httpOnly'];
-
-          if (result['expires'] != null) {
-            c.expires = DateTime.fromMillisecondsSinceEpoch(
-                (result['expires'] * 1000).toInt());
-          }
-
-          return c;
-        }).toList());
+  Future<List<Map<dynamic, dynamic>>> getCookies(String url) {
+    return _channel.invokeListMethod<Map>(
+        'getCookies', {'url': url}).then((results) => results);
   }
 
   /// Remove cookies with [currentUrl] for IOS and Android
